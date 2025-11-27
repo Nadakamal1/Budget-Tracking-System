@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^21.0.1",
+    "install": "^0.13.0",
+    "npm": "^11.6.4"
+  }
+}
