@@ -19,6 +19,17 @@ export const getGoals = async (req: Request, res: Response) => {
   }
 };
 
+export const getGoalById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const goal = await Goal.findById(id);
+    if (!goal) return res.status(404).json({ message: 'Goal not found' });
+    return res.status(200).json(goal);
+  } catch (err: any) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+
 export const updateGoal = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;

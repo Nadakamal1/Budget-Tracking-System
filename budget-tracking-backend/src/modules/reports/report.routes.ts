@@ -1,12 +1,11 @@
 import { Router } from 'express';
-import { generateReport, getReports } from './report.controller';
+import { generateReport, getReports, getReportById, deleteReport } from './report.controller';
+import { authenticate } from "../../middleware/auth.middleware";
 
 const router = Router();
+router.post('/generate',authenticate, generateReport);
+router.get('/:userId', authenticate, getReports);
+router.get('/:userId/:id', authenticate, getReportById);
+router.delete('/:userId/:id', authenticate, deleteReport);
 
-// POST /reports/generate
-router.post('/generate', generateReport);
-
-// GET /reports/:userId
-router.get('/:userId', getReports);
-
-export default router;
+export default router; 

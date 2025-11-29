@@ -1,25 +1,26 @@
-import mongoose, { Schema, Document } from 'mongoose';
+// src/models/report.model.ts
+import { Schema, model, Document } from 'mongoose';
 
+// Define types
 export type ReportType = 'income-expense' | 'budget-variance' | 'savings-progress';
 
 export interface IReport extends Document {
   userId: string;
   type: ReportType;
   title: string;
-  description?: string;
   generatedAt: Date;
-  data: any; 
+  data: any;
 }
 
+// Mongoose schema
 const reportSchema = new Schema<IReport>({
   userId: { type: String, required: true },
-  type: { type: String, required: true },
+  type: { type: String, enum: ['income-expense', 'budget-variance', 'savings-progress'], required: true },
   title: { type: String, required: true },
-  description: { type: String },
   generatedAt: { type: Date, default: Date.now },
   data: { type: Schema.Types.Mixed, required: true },
-}, { timestamps: true });
+});
 
-const Report = mongoose.model<IReport>('Report', reportSchema);
+const Report = model<IReport>('Report', reportSchema);
 
 export default Report;

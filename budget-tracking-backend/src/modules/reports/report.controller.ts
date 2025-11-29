@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import Report, { IReport, ReportType } from '../../models/report.model';
+import Report, { IReport } from '../../models/report.model';
+import type { ReportType } from '../../models/report.model';
 import Income from '../../models/income.model';
 import Expense from '../../models/expense.model';
 import Budget from '../../models/budget.model';
@@ -85,6 +86,28 @@ export const getReports = async (req: Request, res: Response) => {
   try {
     const reports = await Report.find({ userId: req.params.userId }).sort({ generatedAt: -1 });
     return res.status(200).json(reports);
+  } catch (err: any) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+export const getReportById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const report = await Report.findById(id);
+    if (!report) return res.status(404).json({ message: 'Report not found' });
+    return res.status(200).json(report);
+  } catch (err: any) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+export const deleteReport = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const deleted = await Report.findByIdAndDelete(id);
+    if (!deleted) return res.status(404).json({ message: 'Report not found' });
+    return res.status(204).send();
   } catch (err: any) {
     return res.status(500).json({ message: err.message });
   }

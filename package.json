@@ -1,6 +1,9 @@
 {
+  "type": "module",
   "devDependencies": {
     "@angular-devkit/build-angular": "^21.0.1",
+    "@types/cors": "^2.8.19",
+    "@types/morgan": "^1.9.10",
     "install": "^0.13.0",
     "npm": "^11.6.4"
   }
