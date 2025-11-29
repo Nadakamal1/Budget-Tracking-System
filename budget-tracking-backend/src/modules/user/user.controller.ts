@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import User from '../../models/user.model';
 
-// GET user profile
+
 export const getUserProfile = async (req: Request, res: Response) => {
   try {
     const user = await User.findById(req.params.id).select('-password');
@@ -14,7 +14,6 @@ export const getUserProfile = async (req: Request, res: Response) => {
   }
 };
 
-// UPDATE profile
 export const updateProfile = async (req: Request, res: Response) => {
   try {
     const updated = await User.findByIdAndUpdate(req.params.id, req.body, { new: true }).select('-password');
@@ -26,7 +25,7 @@ export const updateProfile = async (req: Request, res: Response) => {
   }
 };
 
-// CHANGE PASSWORD
+
 export const changeUserPassword = async (req: Request, res: Response) => {
   try {
     const user = await User.findById(req.params.id);
